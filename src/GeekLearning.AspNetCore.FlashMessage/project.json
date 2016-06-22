@@ -1,6 +1,6 @@
 {
   "version": "0.0.1-*",
-  "description": "GeekLearning.Domain Class Library",
+  "description": "GeekLearning.AspNetCore.FlashMessage Class Library",
   "authors": [ "Geek Learning", "Adrien Siffermann", "Cyprien Autexier" ],
   "packOptions": {
     "tags": [ ],

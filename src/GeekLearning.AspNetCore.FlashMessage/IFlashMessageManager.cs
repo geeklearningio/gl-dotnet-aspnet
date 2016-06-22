@@ -7,8 +7,7 @@
 
     public interface IFlashMessageManager
     {
-        void Init(IEnumerable<FlashMessageModel> flashMessages);
-
-        IEnumerable<FlashMessageModel> Get();
+        void Push(FlashMessage message);
+        IEnumerable<FlashMessage> Peek();
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace GeekLearning.AspNetCore.FlashMessage
+﻿namespace GeekLearning.AspNetCore.FlashMessage.Internal
 {
     using Microsoft.AspNetCore.Http;
     using System;
@@ -8,16 +8,14 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class FlashMessageMiddleware
+    public class FlashMessageCookieMiddleware
     {
         private readonly RequestDelegate next;
-        private readonly IServiceProvider serviceProvider;
         private readonly IDataProtector dataProtector;
 
-        public FlashMessageMiddleware(RequestDelegate next, IServiceProvider serviceProvider, IDataProtectionProvider dataProtectionProvider)
+        public FlashMessageCookieMiddleware(RequestDelegate next, IDataProtectionProvider dataProtectionProvider)
         {
             this.next = next;
-            this.serviceProvider = serviceProvider;
             this.dataProtector = dataProtectionProvider.CreateProtector("GeekLearning.AspNetCore.FlashMessage");
 
             this.CookieName = "_FlashMessage";
@@ -33,32 +31,36 @@
 
         public async Task Invoke(HttpContext context)
         {
-            var flashMessageManager = this.serviceProvider.GetService<IFlashMessageManager>();
+            var flashMessageManager = (FlashMessageManager)context.RequestServices.GetRequiredService<IFlashMessageManager>();
 
             var requestFlashMessages = this.Read(context);
-            flashMessageManager.Init(requestFlashMessages);
+            flashMessageManager.Incoming(requestFlashMessages);
+
+            context.Response.OnStarting(() =>
+            {
+                var responseFlashMessages = flashMessageManager.Outgoing();
+                this.Write(context, responseFlashMessages);
+                return Task.FromResult(0);
+            });
 
             await this.next.Invoke(context);
-
-            var responseFlashMessages = flashMessageManager.Get();
-            this.Write(context, responseFlashMessages);
         }
 
-        private IEnumerable<FlashMessageModel> Read(HttpContext context)
+        private IEnumerable<FlashMessage> Read(HttpContext context)
         {
             var cookie = context.Request.Cookies[this.CookieName];
             if (cookie == null)
             {
-                return Enumerable.Empty<FlashMessageModel>();
+                return Enumerable.Empty<FlashMessage>();
             }
 
             var serializedMessages = this.dataProtector.Unprotect(Convert.FromBase64String(cookie));
-            return FlashMessage.Deserialize(serializedMessages);
+            return FlashMessageStringSerializer.Deserialize(serializedMessages);
         }
 
-        private void Write(HttpContext context, IEnumerable<FlashMessageModel> flashMessages)
+        private void Write(HttpContext context, IEnumerable<FlashMessage> flashMessages)
         {
-            var serializedMessages = FlashMessage.Serialize(flashMessages);
+            var serializedMessages = FlashMessageStringSerializer.Serialize(flashMessages);
             var data = Convert.ToBase64String(this.dataProtector.Protect(serializedMessages));
 
             if (data.Length > this.CookieSizeLimit && this.CookieSizeLimit > 0)
