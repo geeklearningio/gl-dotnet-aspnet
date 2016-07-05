@@ -7,13 +7,18 @@
     using Microsoft.AspNetCore.DataProtection;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Cryptography;
+    using Microsoft.Extensions.Logging;
 
     public class FlashMessageCookieMiddleware
     {
         private readonly RequestDelegate next;
         private readonly IDataProtector dataProtector;
+        private ILogger<FlashMessageCookieMiddleware> logger;
 
-        public FlashMessageCookieMiddleware(RequestDelegate next, IDataProtectionProvider dataProtectionProvider)
+        public FlashMessageCookieMiddleware(RequestDelegate next, 
+            IDataProtectionProvider dataProtectionProvider, 
+            ILogger<FlashMessageCookieMiddleware> logger)
         {
             this.next = next;
             this.dataProtector = dataProtectionProvider.CreateProtector("GeekLearning.AspNetCore.FlashMessage");
@@ -21,6 +26,7 @@
             this.CookieName = "_FlashMessage";
             this.CookieSizeLimit = 1024 * 3;
             this.Secure = true;
+            this.logger = logger;
         }
 
         public string CookieName { get; }
@@ -53,9 +59,16 @@
             {
                 return Enumerable.Empty<FlashMessage>();
             }
-
-            var serializedMessages = this.dataProtector.Unprotect(Convert.FromBase64String(cookie));
-            return FlashMessageStringSerializer.Deserialize(serializedMessages);
+            try
+            {
+                var serializedMessages = this.dataProtector.Unprotect(Convert.FromBase64String(cookie));
+                return FlashMessageStringSerializer.Deserialize(serializedMessages);
+            }
+            catch (CryptographicException exception)
+            {
+                logger.LogError("Unabled to decrypt FlashMessage cookie", exception);
+                return Enumerable.Empty<FlashMessage>();
+            }
         }
 
         private void Write(HttpContext context, IEnumerable<FlashMessage> flashMessages)
