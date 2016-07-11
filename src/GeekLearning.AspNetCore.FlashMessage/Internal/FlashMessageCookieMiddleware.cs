@@ -1,14 +1,14 @@
 ﻿namespace GeekLearning.AspNetCore.FlashMessage.Internal
 {
-    using Microsoft.AspNetCore.Http;
-    using System;
-    using System.Threading.Tasks;
-    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.AspNetCore.DataProtection;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Security.Cryptography;
-    using Microsoft.Extensions.Logging;
+    using System.Threading.Tasks;
 
     public class FlashMessageCookieMiddleware
     {
@@ -16,8 +16,8 @@
         private readonly IDataProtector dataProtector;
         private ILogger<FlashMessageCookieMiddleware> logger;
 
-        public FlashMessageCookieMiddleware(RequestDelegate next, 
-            IDataProtectionProvider dataProtectionProvider, 
+        public FlashMessageCookieMiddleware(RequestDelegate next,
+            IDataProtectionProvider dataProtectionProvider,
             ILogger<FlashMessageCookieMiddleware> logger)
         {
             this.next = next;
@@ -44,8 +44,16 @@
 
             context.Response.OnStarting(() =>
             {
-                var responseFlashMessages = flashMessageManager.Outgoing();
-                this.Write(context, responseFlashMessages);
+                try
+                {
+                    var responseFlashMessages = flashMessageManager.Outgoing();
+                    this.Write(context, responseFlashMessages);
+                }
+                catch (Exception ex)
+                {
+                    this.logger.LogError(new EventId(1, "Unknown error"), ex, "An error occured while writing outgoing flash messages.");
+                }
+
                 return Task.FromResult(0);
             });
 

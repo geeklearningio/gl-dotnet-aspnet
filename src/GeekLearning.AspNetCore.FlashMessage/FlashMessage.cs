@@ -3,8 +3,9 @@ namespace GeekLearning.AspNetCore.FlashMessage
 {
     using System;
     using System.Collections.Generic;
+
     /// <summary>
-    /// The FlashMessag class represents an individual flash message.
+    /// The FlashMessage class represents an individual flash message.
     /// </summary>
     public class FlashMessage
     {
@@ -14,7 +15,7 @@ namespace GeekLearning.AspNetCore.FlashMessage
 
         public FlashMessageType Type { get; set; }
 
-        public IList<FlashMessageAction> Actions { get; set; }
+        public IList<FlashMessageAction> Actions { get; set; } = new List<FlashMessageAction>();
 
         public FlashMessage()
         {
@@ -22,8 +23,10 @@ namespace GeekLearning.AspNetCore.FlashMessage
         }
     }
 
-    public class FlashMessageAction {
+    public class FlashMessageAction
+    {
         public string Title { get; set; }
+
         public string Action { get; set; }
     }
 

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace GeekLearning.AspNetCore.FlashMessage.Internal
+﻿namespace GeekLearning.AspNetCore.FlashMessage.Internal
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class FlashMessageManager : IFlashMessageManager
     {
         private IEnumerable<FlashMessage> incomingMessages = Enumerable.Empty<FlashMessage>();
