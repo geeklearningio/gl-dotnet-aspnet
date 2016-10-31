@@ -1,0 +1,24 @@
+{
+  "version": "0.0.1-*",
+  "description": "Loads Semver informations from JSON configuration file for ASP.NET Core, and exposes it through a HTTP header and a tag helper.",
+  "authors": [ "Geek Learning", "Adrien Siffermann", "Cyprien Autexier" ],
+  "packOptions": {
+    "tags": [],
+    "projectUrl": "",
+    "licenseUrl": ""
+  },
+
+  "dependencies": {
+    "NETStandard.Library": "1.6.0",
+    "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
+    "Microsoft.Extensions.Options": "1.0.0",
+    "Microsoft.AspNetCore.Razor.Runtime": "1.0.0",
+    "Microsoft.Extensions.Configuration.Abstractions": "1.0.0",
+    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0"
+  },
+
+  "frameworks": {
+    "net452": {},
+    "netstandard1.5": {}
+  }
+}

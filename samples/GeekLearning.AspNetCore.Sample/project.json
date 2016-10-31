@@ -44,7 +44,8 @@
       "type": "build"
     },
 
-    "GeekLearning.AspNetCore.FlashMessage": "*"
+    "GeekLearning.AspNetCore.FlashMessage": "*",
+    "GeekLearning.AspNetCore.Semver": "*"
   },
 
   "tools": {
