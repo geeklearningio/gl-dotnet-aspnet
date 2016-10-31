@@ -7,6 +7,8 @@
 
     public class SemverMiddleware
     {
+        private const string HeaderName = "X-SemVer";
+
         private readonly RequestDelegate next;
         private readonly IOptions<SemverOptions> options;
 
@@ -18,14 +20,15 @@
 
         public async Task Invoke(HttpContext context)
         {
-            context.Response.OnStarting(
-                state =>
+            context.Response.OnStarting(() =>
+            {
+                if (!context.Response.Headers.ContainsKey(HeaderName))
                 {
-                    var httpContext = (HttpContext)state;
-                    httpContext.Response.Headers.Add("X-SemVer", new StringValues(this.options.Value.SemVer));
-                    return Task.FromResult(0);
-                },
-                context);
+                    context.Response.Headers.Add(HeaderName, new StringValues(this.options.Value.SemVer));
+                }
+
+                return Task.FromResult(0);
+            });
 
             await this.next.Invoke(context);
         }
