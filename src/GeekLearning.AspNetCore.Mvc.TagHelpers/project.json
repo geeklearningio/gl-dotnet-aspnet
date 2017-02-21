@@ -9,8 +9,8 @@
   },
 
   "dependencies": {
-    "NETStandard.Library": "1.6.0",
-    "Microsoft.AspNetCore.Razor.Runtime": "1.0.0"
+    "NETStandard.Library": "1.6.1",
+    "Microsoft.AspNetCore.Razor.Runtime": "1.1.0"
   },
 
   "frameworks": {
