@@ -13,6 +13,7 @@ using GeekLearning.AspNetCore.Sample.Data;
 using GeekLearning.AspNetCore.Sample.Models;
 using GeekLearning.AspNetCore.Sample.Services;
 using GeekLearning.AspNetCore.FlashMessage;
+using GeekLearning.AspNetCore.Semver;
 
 namespace GeekLearning.AspNetCore.Sample
 {
@@ -23,6 +24,7 @@ namespace GeekLearning.AspNetCore.Sample
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("appsettings.version.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
             if (env.IsDevelopment())
@@ -49,11 +51,13 @@ namespace GeekLearning.AspNetCore.Sample
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
+
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
             services.AddFlashMessage();
+            services.AddSemver(Configuration.GetSection("Version"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +79,7 @@ namespace GeekLearning.AspNetCore.Sample
 
             app.UseStaticFiles();
 
+            app.UseSemverHttpHeader();
             app.UseFlashMessage();
             app.UseIdentity();
 

@@ -1,14 +1,11 @@
 ﻿namespace GeekLearning.AspNetCore.FlashMessage.Internal
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.IO;
-    using System.Text;
+    using System.Linq;
 
     public class FlashMessageStringSerializer
     {
-
         /// <summary>
         /// Deserializes a serialized collection of flash messages.
         /// </summary>
@@ -21,18 +18,18 @@
 
             // Check if there is any data to read, if not we are done quickly.
             if (data.Length == 0)
+            {
                 return messages;
+            }
 
             using (MemoryStream stream = new MemoryStream(data))
             {
                 using (BinaryReader reader = new BinaryReader(stream))
                 {
-
                     // Read the number of message in the stream and deserialize each message.
                     messageCount = reader.ReadInt32();
                     while (messageCount > 0)
                     {
-
                         var model = new FlashMessage();
                         model.Message = reader.ReadString();
                         model.Title = reader.ReadString();
@@ -69,7 +66,6 @@
             {
                 using (BinaryWriter writer = new BinaryWriter(stream))
                 {
-
                     // Write the number of message and serialize each message.
                     writer.Write(messages.Count());
                     foreach (var message in messages)
