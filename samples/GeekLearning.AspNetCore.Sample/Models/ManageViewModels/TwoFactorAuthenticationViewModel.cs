@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace GeekLearning.AspNetCore.Sample.Models.ManageViewModels
 {
-    public class VerifyPhoneNumberViewModel
+    public class TwoFactorAuthenticationViewModel
     {
-        [Required]
-        public string Code { get; set; }
+        public bool HasAuthenticator { get; set; }
 
-        [Required]
-        [Phone]
-        [Display(Name = "Phone number")]
-        public string PhoneNumber { get; set; }
+        public int RecoveryCodesLeft { get; set; }
+
+        public bool Is2faEnabled { get; set; }
     }
 }
