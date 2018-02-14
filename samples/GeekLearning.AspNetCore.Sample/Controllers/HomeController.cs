@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using GeekLearning.AspNetCore.FlashMessage;
 using Microsoft.AspNetCore.Mvc;
+using GeekLearning.AspNetCore.Sample.Models;
+using GeekLearning.AspNetCore.FlashMessage;
 
 namespace GeekLearning.AspNetCore.Sample.Controllers
 {
@@ -49,7 +51,7 @@ namespace GeekLearning.AspNetCore.Sample.Controllers
 
         public IActionResult Error()
         {
-            return View();
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
