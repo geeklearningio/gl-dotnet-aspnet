@@ -4,9 +4,9 @@
     <Description>Loads Semver informations from JSON configuration file for ASP.NET Core, and exposes it through a HTTP header and a tag helper.</Description>
     <VersionPrefix>0.0.1</VersionPrefix>
     <Authors>Geek Learning;Adrien Siffermann;Cyprien Autexier</Authors>
-    <TargetFrameworks>netstandard2</TargetFrameworks>
     <AssemblyName>GeekLearning.AspNetCore.Semver</AssemblyName>
     <PackageId>GeekLearning.AspNetCore.Semver</PackageId>
+    <TargetFramework>netstandard2</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>

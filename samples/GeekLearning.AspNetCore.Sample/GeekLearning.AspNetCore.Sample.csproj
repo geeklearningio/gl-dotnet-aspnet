@@ -20,8 +20,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\GeekLearning.AspNetCore.FlashMessage\GeekLearning.AspNetCore.FlashMessage.csproj" />
+    <ProjectReference Include="..\..\src\GeekLearning.AspNetCore.Identity.Localization\GeekLearning.AspNetCore.Identity.Localization.csproj" />
     <ProjectReference Include="..\..\src\GeekLearning.AspNetCore.Mvc.TagHelpers\GeekLearning.AspNetCore.Mvc.TagHelpers.csproj" />
     <ProjectReference Include="..\..\src\GeekLearning.AspNetCore.Semver\GeekLearning.AspNetCore.Semver.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>

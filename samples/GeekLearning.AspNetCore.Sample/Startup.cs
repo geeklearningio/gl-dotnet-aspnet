@@ -13,6 +13,9 @@ using GeekLearning.AspNetCore.Sample.Models;
 using GeekLearning.AspNetCore.Sample.Services;
 using GeekLearning.AspNetCore.FlashMessage;
 using GeekLearning.AspNetCore.Semver;
+using GeekLearning.AspNetCore.Identity.Localization;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace GeekLearning.AspNetCore.Sample
 {
@@ -40,7 +43,10 @@ namespace GeekLearning.AspNetCore.Sample
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddErrorDescriber<LocalizedIdentityErrorDescriber>();
+
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
@@ -54,6 +60,16 @@ namespace GeekLearning.AspNetCore.Sample
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            var frenchCultureInfo = new CultureInfo("fr-FR");
+            var localizationOptions = new RequestLocalizationOptions
+            {
+                SupportedCultures = new List<CultureInfo> { frenchCultureInfo },
+                SupportedUICultures = new List<CultureInfo> { frenchCultureInfo },
+                DefaultRequestCulture = new RequestCulture(frenchCultureInfo),
+            };
+
+            app.UseRequestLocalization(localizationOptions);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

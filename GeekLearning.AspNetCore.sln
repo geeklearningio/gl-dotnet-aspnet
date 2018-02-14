@@ -24,6 +24,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeekLearning.AspNetCore.Sem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekLearning.AspNetCore.Sample", "samples\GeekLearning.AspNetCore.Sample\GeekLearning.AspNetCore.Sample.csproj", "{3AF36E7B-D25D-472E-971C-56EA91FF8B34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekLearning.AspNetCore.Identity.Localization", "src\GeekLearning.AspNetCore.Identity.Localization\GeekLearning.AspNetCore.Identity.Localization.csproj", "{8B93A099-4DDA-477C-BF44-6FEE2E134285}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{3AF36E7B-D25D-472E-971C-56EA91FF8B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AF36E7B-D25D-472E-971C-56EA91FF8B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AF36E7B-D25D-472E-971C-56EA91FF8B34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B93A099-4DDA-477C-BF44-6FEE2E134285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B93A099-4DDA-477C-BF44-6FEE2E134285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B93A099-4DDA-477C-BF44-6FEE2E134285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B93A099-4DDA-477C-BF44-6FEE2E134285}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{BA21D5EF-37A0-4B2A-BA9E-B02E7BB10137} = {A1F021F1-E4D9-414D-8517-ABB03AFF1098}
 		{8CD4D7D0-7F3C-40C4-A2A6-496FD059AB36} = {A1F021F1-E4D9-414D-8517-ABB03AFF1098}
 		{3AF36E7B-D25D-472E-971C-56EA91FF8B34} = {5BCC9DD7-3193-4495-9BBB-79D35B7324C7}
+		{8B93A099-4DDA-477C-BF44-6FEE2E134285} = {A1F021F1-E4D9-414D-8517-ABB03AFF1098}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BFA97740-88DD-4B90-A7D3-3D6F877305A8}

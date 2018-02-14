@@ -4,9 +4,9 @@
     <Description>Flash messages for ASP.NET Core to persist messages through a Post-redirect-get pattern.</Description>
     <VersionPrefix>0.0.1</VersionPrefix>
     <Authors>Geek Learning;Adrien Siffermann;Cyprien Autexier</Authors>
-    <TargetFrameworks>netstandard2</TargetFrameworks>
     <AssemblyName>GeekLearning.AspNetCore.FlashMessage</AssemblyName>
     <PackageId>GeekLearning.AspNetCore.FlashMessage</PackageId>
+    <TargetFramework>netstandard2</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
